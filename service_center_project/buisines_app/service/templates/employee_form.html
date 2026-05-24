@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1>{{ title }}</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="alert alert-danger">Пожалуйста, исправьте ошибки в форме.</div>
+            {% endif %}
+
+            <div class="mb-3">
+                <label class="form-label">Пользователь</label>
+                {{ form.user }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Имя</label>
+                {{ form.name }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Почта</label>
+                {{ form.email }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Номер телефона</label>
+                {{ form.phone_number }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Должность</label>
+                {{ form.position }}
+            </div>
+
+            <button class="btn btn-primary">Сохранить</button>
+            <a href="{% url 'employee_list' %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1>{{ service_request.title }}</h1>
+
+        <p class="text-muted">
+            Создана: {{ service_request.created_at|date:"d.m.Y H:i" }}
+        </p>
+
+        <hr>
+
+        <p><strong>Описание:</strong></p>
+        <p>{{ service_request.description }}</p>
+
+        <p><strong>Клиент:</strong> {{ service_request.client.name }}</p>
+
+        <p>
+            <strong>Сотрудник:</strong>
+            {% if service_request.employee %}
+                {{ service_request.employee.name }}
+            {% else %}
+                <span class="text-muted">Не назначен</span>
+            {% endif %}
+        </p>
+
+        <p><strong>Статус:</strong> {{ service_request.get_status_display }}</p>
+
+        {% if service_request.closed_at %}
+            <p><strong>Дата закрытия:</strong> {{ service_request.closed_at|date:"d.m.Y H:i" }}</p>
+        {% endif %}
+
+        <div class="mt-4">
+            {% if can_edit %}
+                <a href="{% url 'request_update' service_request.pk %}" class="btn btn-warning">Редактировать</a>
+            {% endif %}
+            {% if can_delete %}
+                <a href="{% url 'request_delete' service_request.pk %}" class="btn btn-danger">Удалить</a>
+            {% endif %}
+            <a href="{% url 'request_list' %}" class="btn btn-secondary">Назад</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="mb-3">Профиль пользователя</h1>
+                <p><strong>Логин:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email|default:"—" }}</p>
+                <p><strong>Роль:</strong> {{ user.userprofile.get_role_display|default:"Не назначена" }}</p>
+
+                {% if client_profile %}
+                    <hr>
+                    <h5>Данные клиента</h5>
+                    <p><strong>Имя:</strong> {{ client_profile.name }}</p>
+                    <p><strong>Телефон:</strong> {{ client_profile.phone_number|default:"—" }}</p>
+                {% endif %}
+
+                {% if employee_profile %}
+                    <hr>
+                    <h5>Данные сотрудника</h5>
+                    <p><strong>Имя:</strong> {{ employee_profile.name }}</p>
+                    <p><strong>Телефон:</strong> {{ employee_profile.phone_number|default:"—" }}</p>
+                    <p><strong>Должность:</strong> {{ employee_profile.position }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="h4 mb-3">Статистика заявок</h2>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="border rounded p-3 bg-light">
+                            <div class="text-muted small">Всего</div>
+                            <div class="fs-3">{{ request_stats.total }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="border rounded p-3 bg-light">
+                            <div class="text-muted small">Новые</div>
+                            <div class="fs-3">{{ request_stats.new }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="border rounded p-3 bg-light">
+                            <div class="text-muted small">В работе</div>
+                            <div class="fs-3">{{ request_stats.in_progress }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="border rounded p-3 bg-light">
+                            <div class="text-muted small">Завершены</div>
+                            <div class="fs-3">{{ request_stats.completed }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="{% url 'request_list' %}" class="btn btn-primary">Перейти к заявкам</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

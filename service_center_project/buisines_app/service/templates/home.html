@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="p-4 bg-white rounded shadow-sm mb-4">
+    <h1 class="mb-3">Система управления заявками</h1>
+    <p class="text-muted">
+        Веб-приложение для автоматизации обработки клиентских заявок сервисного центра.
+    </p>
+    <a href="{% url 'request_create' %}" class="btn btn-primary">Создать заявку</a>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>Всего заявок</h5>
+                <h2>{{ total_requests }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>Новые</h5>
+                <h2>{{ new_requests }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>В работе</h5>
+                <h2>{{ in_progress_requests }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>Выполнены</h5>
+                <h2>{{ done_requests }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

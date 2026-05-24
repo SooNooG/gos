@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1>{{ title }}</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            {% if form.errors %}
+                <div class="alert alert-danger">Пожалуйста, исправьте ошибки в форме.</div>
+            {% endif %}
+
+            <div class="mb-3">
+                <label class="form-label">Название заявки</label>
+                {{ form.title }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Описание</label>
+                {{ form.description }}
+            </div>
+
+            {% if not form.client.is_hidden %}
+                <div class="mb-3">
+                    <label class="form-label">Клиент</label>
+                    {{ form.client }}
+                </div>
+            {% endif %}
+
+            {% if not form.employee.is_hidden %}
+                <div class="mb-3">
+                    <label class="form-label">Ответственный сотрудник</label>
+                    {{ form.employee }}
+                </div>
+            {% endif %}
+
+            {% if not form.status.is_hidden %}
+                <div class="mb-3">
+                    <label class="form-label">Статус</label>
+                    {{ form.status }}
+                </div>
+            {% endif %}
+
+            <button class="btn btn-primary">Сохранить</button>
+            <a href="{% url 'request_list' %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
